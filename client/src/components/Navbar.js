@@ -1,7 +1,6 @@
 import React, {useContext} from "react";
 import {Link} from "react-router-dom";
 import {AuthContext} from "../context/authContext";
-import login from "../pages/Login";
 const Navbar = ()=> {
 
     const {currentUser,logout} = useContext(AuthContext);
@@ -15,17 +14,17 @@ const Navbar = ()=> {
                     <Link to="/about"><h6>ABOUT</h6></Link>
                 </div>
                 <div className="centerText">
-                    <Link to="/?category=daily"><h6>DAILY</h6></Link>
-                    <Link to="/?category=art"><h6>ART</h6></Link>
-                    <Link to="/?category=science"><h6>SCIENCE</h6></Link>
-                    <Link to="/?category=travel"><h6>TRAVEL</h6></Link>
-                    <Link to="/?category=photography"><h6>PHOTOGRAPHY </h6></Link>
-                    <Link to="/?category=health"><h6>HEALTH</h6></Link>
-                    <Link to="/?category=food"><h6>FOOD</h6></Link>
+                    <Link to="/?tag=daily"><h6>DAILY</h6></Link>
+                    <Link to="/?tag=art"><h6>ART</h6></Link>
+                    <Link to="/?tag=science"><h6>SCIENCE</h6></Link>
+                    <Link to="/?tag=travel"><h6>TRAVEL</h6></Link>
+                    <Link to="/?tag=photography"><h6>PHOTOGRAPHY </h6></Link>
+                    <Link to="/?tag=health"><h6>HEALTH</h6></Link>
+                    <Link to="/?tag=food"><h6>FOOD</h6></Link>
                 </div>
                 <div className="centerText">
                     <span className="ml-6" >{currentUser?.username}</span>
-                    {currentUser ? <span className="cursor-pointer" onClick={logout}>Logout</span>
+                    {currentUser ? <Link to="/" className="cursor-pointer" onClick={logout}>Logout</Link>
                         : <Link to="/login">Login</Link>
                     }
                     <span className="p-2 rounded-tr-3xl rounded-bl-3xl bg-firstBackground">

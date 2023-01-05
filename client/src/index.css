@@ -27,3 +27,8 @@
 .singleImageWidth {
     width: 55rem;
 }
+.tagsStyle{
+    display: flex;
+    text-align: center;
+    margin: 4px;
+}

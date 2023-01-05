@@ -1,81 +1,26 @@
-import React from "react";
-import {Link} from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {Link, useLocation} from "react-router-dom";
+import axios from "axios";
 
 const Home = ()=> {
 
-    const data = [
-        {
-            id:1,
-            title:"lorem ipsum dolor",
-            desc:"Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolorLorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolorLorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor",
-            tag: "daily",
-            img: "https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg",
-        },
-        {
-            id:2,
-            title:"lorem ipsum dolor",
-            desc:"Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor",
-            tag: "daily",
-            img: "https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg",
-        },
-        {
-            id:3,
-            title:"lorem ipsum dolor",
-            desc:"Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor",
-            tag: "daily",
-            img: "https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg",
-        },
-        {
-            id:4,
-            title:"lorem ipsum dolor",
-            desc:"Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor",
-            tag: "daily",
-            img: "https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg",
-        },
-        {
-            id:5,
-            title:"lorem ipsum dolor",
-            desc:"Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor",
-            tag: "daily",
-            img: "https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg",
-        },
-        {
-            id:6,
-            title:"lorem ipsum dolor",
-            desc:"Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor",
-            tag: "daily",
-            img: "https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg",
-        },
-        {
-            id:7,
-            title:"lorem ipsum dolor",
-            desc:"Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor",
-            tag: "daily",
-            img: "https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg",
-        },
-        {
-            id:8,
-            title:"lorem ipsum dolor",
-            desc:"Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor",
-            tag: "daily",
-            img: "https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg",
-        },
-        {
-            id:9,
-            title:"lorem ipsum dolor",
-            desc:"Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor",
-            tag: "daily",
-            img: "https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg",
-        },
-        {
-            id:10,
-            title:"lorem ipsum dolor",
-            desc:"Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor",
-            tag: "daily",
-            img: "https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg",
-        },
+    const [posts,setPosts] = useState([]);
 
-    ]
+    const cat = useLocation().search;
+
+    useEffect(() =>{
+        const fetchData = async () => {
+            try {
+                const res = await axios.get(`/posts${cat}`)
+                console.log(res.data)
+                setPosts(res.data)
+            } catch (err) {
+                console.log("sa"+err)
+            }
+        }
+        fetchData();
+    },[cat])
+
     const handleTags = [
         {
             tag:"Daily",
@@ -106,7 +51,7 @@ const Home = ()=> {
             <div className="flex navbarWidth  justify-between">
                 <div className=" w-3/4 text-center justify-center">
                     {
-                        data.map(post => (
+                        posts.map((post) => (
                             <div className="border-2 border-loginTextColor rounded-xl mt-6 mb-3 p-6" key={post.id} >
                                 <div className="flex flex-col justify-start text-center">
                                     <div className="flex justify-between text-center">
@@ -126,7 +71,7 @@ const Home = ()=> {
                             <div className="tags">
                                 {
                                     handleTags.map(item => (
-                                        <Link to={`/?category=${item.tag.toLowerCase()}`}>
+                                        <Link to={`/?tag=${item.tag.toLowerCase()}`} key={item.tag}>
                                             <div className="flex justify-between mt-4 border-b-2 border-red-300">
                                                 <h1 className="">{item.tag}</h1>
                                                 <p>{item.count}</p>
@@ -139,11 +84,11 @@ const Home = ()=> {
                     </div>
                     <div className="mt-4 ml-8">
                         <div className=" p-7 border-red-300">
-                            <h1 className="flex">Most written tags</h1>
+                            <h1 className="flex">Most popular authors</h1>
                             <div className="tags">
                                 {
                                     handleTags.map(item => (
-                                        <Link to={`/?category=${item.tag.toLowerCase()}`}>
+                                        <Link to={`/?tag=${item.tag.toLowerCase()}`} key={item.tag}>
                                             <div className="flex justify-between mt-4 border-b-2 border-red-300">
                                                 <h1 className="">{item.tag}</h1>
                                                 <p>{item.count}</p>
