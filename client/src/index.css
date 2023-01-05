@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.flexContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.inputStyle {
+    margin-bottom: 0.75rem;
+    padding:0.5rem;
+    border-bottom: 1px solid black;
+}
+
+.navbarWidth{
+    width: 1240px;
+}
+.centerText {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.singleImageWidth {
+    width: 55rem;
+}
