@@ -15,9 +15,8 @@ const Single = ()=> {
             try {
                 const res = await axios.get(`/posts/${postId}`);
                 setPost(res.data);
-                console.log(res.data)
             } catch (err) {
-                console.log("sa"+err);
+                console.log(err);
             }
         }
         fetchData();
@@ -103,16 +102,22 @@ const Single = ()=> {
                     <img src={post?.img} alt="" />
                     <div className="mt-3 flex text-center justify-between">
                         <div className="flex mt-4">
-                            <img className="w-16 h-16 rounded-full" src="https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg" alt="" />
+                            {post.image
+                                ? <img className="w-16 h-16 rounded-full" src={post.image} alt="" />
+                                : <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-16 h-16 rounded-full">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+
+                            }
                             <div className="mt-2 ml-3 ">
                                 <span className="flex font-bold">{post.username}</span>
                                 <p>Posted 3 days ago</p>
                             </div>
                         </div>
                         <div className="flex mt-8">
-                            {currentUser.username === post.username  &&
+                            {currentUser?.username === post.username  &&
                                 <>
-                                    <Link to={`/write?edit=2`}>
+                                    <Link to={`/write?edit=2`} state={post}>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                              strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 mr-4 text-green-700">
                                             <path strokeLinecap="round" strokeLinejoin="round"

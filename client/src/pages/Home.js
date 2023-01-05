@@ -12,10 +12,9 @@ const Home = ()=> {
         const fetchData = async () => {
             try {
                 const res = await axios.get(`/posts${cat}`)
-                console.log(res.data)
                 setPosts(res.data)
             } catch (err) {
-                console.log("sa"+err)
+                console.log(+err)
             }
         }
         fetchData();
@@ -44,6 +43,10 @@ const Home = ()=> {
         },
     ]
 
+    const getText = (html) => {
+        const doc = new DOMParser().parseFromString(html,"text/html")
+        return doc.body.textContent
+    }
 
 
     return (
@@ -58,7 +61,7 @@ const Home = ()=> {
                                         <Link className="font-bold mb-1" to={`/post/${post.id}`}>{post.title}</Link>
                                         <Link className="rounded-3xl px-3 bg-firstBackground flex justify-center text-center" to={`/?category=${post.tag}`}>{post.tag}</Link>
                                     </div>
-                                    <p className="text-justify leading-6 mt-4">{post.desc}</p>
+                                    <p className="text-justify leading-6 mt-4">{getText(post.desc)}</p>
                                 </div>
                             </div>
                         ))
